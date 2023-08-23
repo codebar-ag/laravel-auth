@@ -23,6 +23,16 @@ You can install the package via composer:
 composer require codebar-ag/laravel-auth
 ```
 
+### Add configuration to `config/services.php`
+
+```php
+'microsoft' => [    
+  'client_id' => env('MICROSOFT_CLIENT_ID'),  
+  'client_secret' => env('MICROSOFT_CLIENT_SECRET'),  
+  'redirect' => env('MICROSOFT_REDIRECT_URI') 
+],
+```
+
 You can publish and run the migrations with:
 
 ```bash
