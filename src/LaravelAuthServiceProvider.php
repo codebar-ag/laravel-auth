@@ -3,9 +3,9 @@
 namespace CodebarAg\LaravelAuth;
 
 use CodebarAg\LaravelAuth\Commands\LaravelAuthCommand;
+use CodebarAg\LaravelAuth\Models\AuthProvider;
+use CodebarAg\LaravelAuth\Observers\AuthProviderObserver;
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Str;
 use SocialiteProviders\Manager\SocialiteWasCalled;
 use SocialiteProviders\Microsoft\MicrosoftExtendSocialite;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
@@ -52,5 +52,7 @@ class LaravelAuthServiceProvider extends PackageServiceProvider
                 $events->listen($event, $listener);
             }
         }
+
+        AuthProvider::observe(AuthProviderObserver::class);
     }
 }

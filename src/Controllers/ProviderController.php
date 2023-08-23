@@ -40,31 +40,21 @@ class ProviderController
     {
         $socialiteUser = Socialite::driver(ProviderEnum::MICROSOFT_OFFICE_365()->value)->user();
 
-        ray($socialiteUser);
-
-        $provider = AuthProvider::firstOrCreate(
+        $provider = AuthProvider::updateOrCreate(
             [
                 'provider' => ProviderEnum::MICROSOFT_OFFICE_365()->value,
                 'provider_id' => $socialiteUser->id,
             ],
             [
+                'name' => $socialiteUser->name,
+                'email' => $socialiteUser->email,
+
                 'token' => $socialiteUser->token,
                 'refresh_token' => $socialiteUser->refreshToken,
             ]
         );
 
-        if ($provider->wasRecentlyCreated) {
-            $user = User::create([
-                'name' => $socialiteUser->name,
-                'email' => ProviderEnum::MICROSOFT_OFFICE_365()->value . '_' . $socialiteUser->email,
-            ]);
-
-            $provider->update([
-                'user_id' => $user->id,
-            ]);
-
-            $provider->refresh();
-        }
+        $provider->refresh();
 
         Auth::login($provider->user);
 
