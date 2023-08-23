@@ -56,7 +56,7 @@ class ProviderController
         if ($provider->wasRecentlyCreated) {
             $user = User::create([
                 'name' => $socialiteUser->name,
-                'email' => $socialiteUser->email,
+                'email' => ProviderEnum::MICROSOFT_OFFICE_365()->value . '_' . $socialiteUser->email,
             ]);
 
             $provider->update([
