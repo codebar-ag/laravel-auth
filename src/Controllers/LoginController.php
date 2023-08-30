@@ -21,7 +21,6 @@ class LoginController
             'password' => $loginRequest->password,
         ];
 
-        ray($credentials);
         if (! Auth::attempt($credentials, $loginRequest->remember)) {
             throw ValidationException::withMessages([
                 'email' => __('auth.failed'),

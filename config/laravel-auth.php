@@ -1,6 +1,11 @@
 <?php
 
 // config for CodebarAg/LaravelAuth
+use Spatie\Honeypot\ProtectAgainstSpam;
+
 return [
-    'middleware' => ['web'],
+    'middleware' => [
+        'web',
+        ProtectAgainstSpam::class
+    ],
 ];
