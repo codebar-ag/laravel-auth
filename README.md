@@ -111,6 +111,8 @@ Add the following trait to your `User` model:
 use CodebarAg\LaravelAuth\Traits\HasAuthProviders;
 ```
 
+Visit your nova admin panel and you will be redirected to the login page.
+
 ## Testing
 
 ```bash
