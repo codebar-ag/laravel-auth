@@ -36,14 +36,20 @@ composer require codebar-ag/laravel-auth
 You can publish and run the migrations with:
 
 ```bash
-php artisan vendor:publish --tag="laravel-auth-migrations"
+php artisan vendor:publish --tag="auth-migrations"
 php artisan migrate
 ```
 
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag="laravel-auth-config"
+php artisan vendor:publish --tag="auth-config"
+```
+
+You can publish the assets with:
+
+```bash
+php artisan vendor:publish --tag="auth-assets"
 ```
 
 This is the contents of the published config file:
