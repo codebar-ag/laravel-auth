@@ -18,7 +18,7 @@
     <div class="flex min-h-screen items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div class="w-full max-w-md space-y-8">
 
-            <form class="mt-8 space-y-4" action="{{ route('auth.login') }}" method="POST">
+            <form class="mt-8 space-y-4" action="{{ route('auth.login.store') }}" method="POST">
                 @csrf
 
                 <div>
@@ -101,21 +101,22 @@
 
                 </div>
 
-                <div class="flex flex-column items-center justify-between">
+                <div class="space-y-4">
                     <button
-                            type="submit"
-                            dusk="login-button"
-                            class="rounded-md bg-blue-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 w-full">
+                        type="submit"
+                        dusk="login-button"
+                        class="rounded-md bg-blue-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 w-full">
                         {{ __('Sign In') }}
                     </button>
 
                     <a
-                            href="{{ route('auth.provider', \CodebarAg\LaravelAuth\Enums\ProviderEnum::MICROSOFT_OFFICE_365()) }}"
-                            type="submit"
-                            dusk="login-button"
-                            class="rounded-md bg-blue-500 px-3 py-2 text-sm font-semibold text-center text-white shadow-sm hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 w-full">
-                        {{ __('Sign In with Microsoft') }}
+                        href="{{ route('auth.provider', \CodebarAg\LaravelAuth\Enums\ProviderEnum::MICROSOFT_OFFICE_365()) }}"
+                        dusk="microsoft-login-button"
+                        class="inline-flex items-center justify-center gap-x-2 rounded-md bg-blue-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 w-full">
+                        <svg class="fill-white w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 278050 333334" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd"><path fill="currentColor" d="M278050 305556l-29-16V28627L178807 0 448 66971l-448 87 22 200227 60865-23821V80555l117920-28193-17 239519L122 267285l178668 65976v73l99231-27462v-316z"/></svg>
+                        <span>{{ __('Sign In with Microsoft') }}</span>
                     </a>
+
                 </div>
 
             </form>

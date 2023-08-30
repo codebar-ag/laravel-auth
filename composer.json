@@ -21,7 +21,10 @@
         "laravel/socialite": "^5.8",
         "socialiteproviders/microsoft": "^4.2",
         "spatie/laravel-enum": "^3.0",
-        "spatie/laravel-package-tools": "^1.14.0"
+        "spatie/laravel-package-tools": "^1.14.0",
+        "spatie/laravel-flash": "^1.9",
+        "spatie/laravel-activitylog": "^4.7",
+        "spatie/laravel-honeypot": "^4.3"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
