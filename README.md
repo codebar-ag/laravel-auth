@@ -61,9 +61,10 @@ php artisan vendor:publish --tag="laravel-auth-views"
 
 ## Usage
 
+Add the following trait to your `User` model:
+
 ```php
-$laravelAuth = new CodebarAg\LaravelAuth();
-echo $laravelAuth->echoPhrase('Hello, CodebarAg!');
+use CodebarAg\LaravelAuth\Traits\HasAuthProviders;
 ```
 
 ## Testing
