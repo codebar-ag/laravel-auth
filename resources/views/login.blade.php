@@ -1,105 +1,142 @@
-@extends('auth.layouts.default')
+<!DOCTYPE html>
 
-@section('content')
-    <div class="flex min-h-full">
-        <div class="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
-            <div class="mx-auto w-full max-w-sm lg:w-96">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth h-full bg-gray-50">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <link rel="stylesheet" href="{{ asset('vendor/auth/app.css') }}">
+
+    <title>{{ config('app.name') }}</title>
+</head>
+
+<body class="font-sans antialiased h-full">
+
+<main>
+    <div class="flex min-h-screen items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="w-full max-w-md space-y-8">
+
+            <form class="mt-8 space-y-4" action="{{ route('auth.login.store') }}" method="POST">
+                @csrf
+
                 <div>
-                    <x-branding.logo/>
-                    <h2 class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">{{ __('Sign in to your account') }}</h2>
-                    <p class="mt-2 text-sm leading-6 text-gray-500">
-                        {{ __('Dont have an account?') }}
-                        <a href="{{ route('register') }}" class="font-semibold text-teal-600 hover:text-teal-500">{{ __('Register') }}</a>
-                    </p>
-                </div>
+                    <label for="email"
+                           class="block text-sm font-medium leading-6 text-gray-900">{{ __('Email Address') }}</label>
+                    <div class="relative mt-2 rounded-md shadow-sm">
+                        <input
+                                id="email"
+                                name="email"
+                                dusk="email"
+                                type="email"
+                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6
+                            @error('email') text-red-900 ring-red-300 placeholder:text-red-300 focus:ring-red-500 @enderror"
+                                placeholder="{{ __('Email Address') }}"
+                                value="{{ old('email') }}"
+                                @error('email') aria-invalid="true" aria-describedby="email-error" @enderror
+                                required
+                                autocomplete="email">
 
-                <div class="mt-10">
-                    <div>
-                        <form action="{{ route('login.store') }}" method="POST" class="space-y-6">
-                            @csrf
-                            @honeypot
-
-                            <div>
-                                <label for="email-address"
-                                    class="block text-sm font-medium leading-6 text-gray-900"
-                                    value="{{ old('email') }}"
-                                >
-                                    {{ __('Email Address') }}
-                                </label>
-                                <div class="mt-2">
-                                    <input
-                                        dusk="email" id="email-address" name="email" type="email" autocomplete="email"
-                                        class="focus:shadow-none block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6"
-                                        required
-                                    >
-                                </div>
-                                @error('email')
-                                <span class="text-sm text-red-500">{{$message}}</span>
-                                @enderror
-                            </div>
-
-                            <div x-data="{ showPassword: false }">
-                                <label for="password" class="block text-sm font-medium leading-6 text-gray-900">
-                                    {{ __('Password') }}
-                                </label>
-
-                                <div class="relative mt-2 flex items-center">
-                                    <input dusk="password" id="password" name="password" autocomplete="current-password"
-                                           :type="showPassword ? 'text' : 'password'"
-                                           class="focus:shadow-none block w-full rounded-md border-0 py-1.5 pr-10 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6"
-                                           required
-                                    >
-                                    <div x-on:click="showPassword = !showPassword" class="absolute inset-y-0 right-0 flex py-1.5 pr-1.5">
-                                        <div class="inline-flex items-center rounded border border-gray-200 px-1 font-sans text-xs text-gray-400">
-                                            <svg x-show="!showPassword" class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                                                <path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/>
-                                                <path fill-rule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" clip-rule="evenodd"/>
-                                            </svg>
-                                            <svg x-show="showPassword" class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                                                <path d="M3.53 2.47a.75.75 0 00-1.06 1.06l18 18a.75.75 0 101.06-1.06l-18-18zM22.676 12.553a11.249 11.249 0 01-2.631 4.31l-3.099-3.099a5.25 5.25 0 00-6.71-6.71L7.759 4.577a11.217 11.217 0 014.242-.827c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113z"/>
-                                                <path d="M15.75 12c0 .18-.013.357-.037.53l-4.244-4.243A3.75 3.75 0 0115.75 12zM12.53 15.713l-4.243-4.244a3.75 3.75 0 004.243 4.243z"/>
-                                                <path d="M6.75 12c0-.619.107-1.213.304-1.764l-3.1-3.1a11.25 11.25 0 00-2.63 4.31c-.12.362-.12.752 0 1.114 1.489 4.467 5.704 7.69 10.675 7.69 1.5 0 2.933-.294 4.242-.827l-2.477-2.477A5.25 5.25 0 016.75 12z"/>
-                                            </svg>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                                @error('password')
-                                <span class="text-sm text-red-500">{{$message}}</span>
-                                @enderror
-                            </div>
-
-
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center">
-                                    <input id="remember" name="remember" type="checkbox" class="focus:shadow-none h-4 w-4 rounded border-gray-300 text-teal-600 focus:ring-teal-600">
-                                    <label for="remember" class="ml-3 block text-sm leading-6 text-gray-700">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-
-                                <div class="text-sm leading-6">
-                                    <a href="{{ route('request-password') }}"
-                                       class="font-semibold text-teal-600 hover:text-teal-500">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div>
-                                <button dusk="login-button" type="submit" class="flex w-full justify-center rounded-md bg-teal-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600">
-                                    {{ __('Sign In') }}
-                                </button>
-                            </div>
-                        </form>
+                        @error('email')
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                            <svg class="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor"
+                                 aria-hidden="true">
+                                <path fill-rule="evenodd"
+                                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z"
+                                      clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        @enderror
                     </div>
+                    @error('email')
+                    <p class="mt-2 text-sm text-red-600" id="email-error">
+                        {{$message}}
+                    </p>
+                    @enderror
                 </div>
-            </div>
-        </div>
-        <div class="relative hidden w-0 flex-1 lg:block">
-            <img class="absolute inset-0 h-full w-full object-cover" src="https://res.cloudinary.com/codebar/image/upload/f_auto//www-thejungledog-eco/pexels-mikhail-nilov-8412432.jpg" alt="Pexels Mikhail Nilov 8412432" title="Pexels Mikhail Nilov 8412432">
+
+                <div>
+                    <label for="password"
+                           class="block text-sm font-medium leading-6 text-gray-900">{{ __('Password') }}</label>
+                    <div class="relative mt-2 rounded-md shadow-sm">
+                        <input
+                                id="password"
+                                name="password"
+                                dusk="password"
+                                type="password"
+                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6
+                            @error('password') text-red-900 ring-red-300 placeholder:text-red-300 focus:ring-red-500 @enderror"
+                                placeholder="{{ __('Password') }}"
+                                value="{{ old('password') }}"
+                                @error('password') aria-invalid="true" aria-describedby="password-error" @enderror
+                                required
+                                autocomplete="current-password">
+
+                        @error('password')
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                            <svg class="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor"
+                                 aria-hidden="true">
+                                <path fill-rule="evenodd"
+                                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z"
+                                      clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        @enderror
+                    </div>
+                    @error('password')
+                    <p class="mt-2 text-sm text-red-600" id="email-error">
+                        {{$message}}
+                    </p>
+                    @enderror
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input id="remember" name="remember" type="checkbox"
+                               class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-600">
+                        <label for="remember"
+                               class="ml-2 block text-sm text-gray-900">{{ __('Remember Me') }}</label>
+                    </div>
+
+                </div>
+
+                <div class="space-y-4">
+                    <button
+                            type="submit"
+                            dusk="login-button"
+                            class="rounded-md bg-blue-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 w-full">
+                        {{ __('Sign In') }}
+                    </button>
+
+                    <a
+                            href="{{ route('auth.provider', \CodebarAg\LaravelAuth\Enums\ProviderEnum::MICROSOFT_OFFICE_365()) }}"
+                            dusk="microsoft-login-button"
+                            class="inline-flex items-center justify-center gap-x-2 rounded-md bg-blue-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 w-full">
+                        <svg class="fill-white w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 278050 333334" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd"><path fill="currentColor" d="M278050 305556l-29-16V28627L178807 0 448 66971l-448 87 22 200227 60865-23821V80555l117920-28193-17 239519L122 267285l178668 65976v73l99231-27462v-316z"/></svg>
+                        <span>{{ __('Sign In with Microsoft') }}</span>
+                    </a>
+
+                </div>
+
+            </form>
+
+
         </div>
     </div>
 
-@endsection
+</main>
+
+<footer class="bg-white">
+    <div class="mx-auto max-w-7xl overflow-hidden py-20 px-6 sm:py-24 lg:px-8 space-y-4">
+
+        <p class="text-center text-xs leading-5 text-gray-500">&copy; {{ date('Y') }} {{ config('app.name') }}.
+            {{ __('All rights reserved') }}.
+        </p>
+
+    </div>
+</footer>
+
+
+</body>
+</html>
