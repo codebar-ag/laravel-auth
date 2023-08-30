@@ -59,6 +59,50 @@ Optionally, you can publish the views using
 php artisan vendor:publish --tag="laravel-auth-views"
 ```
 
+## Nova Adjustments
+Add the user menu for logout to your `NovaServiceProvider` boot method:
+```php
+class NovaServiceProvider extends CustomNovaServiceProvider
+{
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        parent::boot();
+
+        Nova::userMenu(function (Request $request, Menu $menu) {
+            return $menu
+                ->append(MenuItem::externalLink('Logout', '/auth/logout'));
+        });
+```
+
+Next in your `NovaServiceProvider` replace the routes method with the following:
+
+Note: you can not register routes for `->withAuthenticationRoutes()` or `->withPasswordResetRoutes()` as this will cause the package to not work.
+
+```php
+    /**
+     * Register the Nova routes.
+     *
+     * @return void
+     */
+    protected function routes()
+    {
+        Nova::routes();
+    }
+```
+
+Next in your `nova.php` config add the following:
+
+```php
+    'routes' => [
+        'login' => 'auth/login',
+    ],
+```
+
 ## Usage
 
 Add the following trait to your `User` model:
