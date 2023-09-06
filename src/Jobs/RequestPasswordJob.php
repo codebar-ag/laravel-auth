@@ -12,6 +12,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
+
 use function App\Jobs\Auth\activity;
 
 class RequestPasswordJob implements ShouldQueue
@@ -21,12 +22,9 @@ class RequestPasswordJob implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    protected int $expirationInMinuets;
-
     public function __construct(
         public string $email
     ) {
-        $this->expirationInMinuets = 60;
     }
 
     public function handle(): void
@@ -64,11 +62,11 @@ class RequestPasswordJob implements ShouldQueue
         ]);
 
         $url = URL::temporarySignedRoute(
-            'reset-password',
-            now()->addMinutes($this->expirationInMinuets),
+            'auth.reset-password',
+            now()->addMinutes(config('laravel-auth.link_expiration_in_minutes', 60)),
             ['token' => $token, 'email' => $user->email]
         );
 
-        $user->notify(new ResetPasswordNotification($user->name, $url, $this->expirationInMinuets));
+        $user->notify(new ResetPasswordNotification($user->name, $url, config('laravel-auth.link_expiration_in_minutes', 60)));
     }
 }

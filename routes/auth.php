@@ -9,19 +9,16 @@ use CodebarAg\LaravelAuth\Controllers\ResetPasswordController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Honeypot\ProtectAgainstSpam;
 
-Route::prefix('auth')->name('auth.')->middleware(config('laravel-auth.middleware', []))->group(function () {
+Route::prefix('auth')->name('auth.')->middleware(['web'])->group(function () {
     Route::middleware(['guest'])->group(function () {
         Route::prefix('login')->group(function () {
             Route::get('/')->uses([LoginController::class, 'index'])
                 ->name('login');
 
-            Route::post('store')->uses([LoginController::class, 'store'])
-                ->name('login.store')
-                ->middleware(ProtectAgainstSpam::class);
+            Route::post('/')->uses([LoginController::class, 'store'])
+                ->middleware(ProtectAgainstSpam::class)
+                ->name('login.store');
         });
-
-        Route::get('{service}', [ProviderController::class, 'service'])->name('provider');
-        Route::get('{service}/redirect', [ProviderController::class, 'serviceRedirect']);
 
         Route::prefix('password')->group(function () {
             Route::get('/')->uses([RequestPasswordController::class, 'index'])
@@ -39,9 +36,17 @@ Route::prefix('auth')->name('auth.')->middleware(config('laravel-auth.middleware
                 ->name('reset-password.store')
                 ->middleware(ProtectAgainstSpam::class);
         });
+
+        Route::prefix('service')->group(function () {
+            Route::get('{service}', [ProviderController::class, 'service'])->name('provider');
+            Route::get('{service}/redirect', [ProviderController::class, 'serviceRedirect'])->name('provider.redirect');
+        });
     });
 
     Route::middleware(['auth'])->group(function () {
+        Route::any('logout')->uses(LogoutController::class)
+            ->name('logout');
+
         Route::prefix('email')->group(function () {
             Route::get('verify')->uses([EmailVerificationController::class, 'index'])
                 ->name('verification.notice');
@@ -52,8 +57,5 @@ Route::prefix('auth')->name('auth.')->middleware(config('laravel-auth.middleware
             Route::post('verification-notification')->uses([EmailVerificationController::class, 'send'])
                 ->name('verification.send');
         });
-
-        Route::any('logout')->uses(LogoutController::class)
-            ->name('logout');
     });
 });

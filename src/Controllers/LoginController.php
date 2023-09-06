@@ -2,7 +2,6 @@
 
 namespace CodebarAg\LaravelAuth\Controllers;
 
-
 use CodebarAg\LaravelAuth\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -11,11 +10,12 @@ class LoginController
 {
     public function index()
     {
-        return view('laravel-auth::login');
+        return view('auth::login');
     }
 
     public function store(LoginRequest $loginRequest)
     {
+        ray($loginRequest->all());
         $credentials = [
             'email' => $loginRequest->email,
             'password' => $loginRequest->password,

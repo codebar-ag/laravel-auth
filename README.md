@@ -119,6 +119,22 @@ use CodebarAg\LaravelAuth\Traits\HasAuthProviders;
 
 Visit your nova admin panel and you will be redirected to the login page.
 
+## Email Verification
+
+If you wish to use email verification, you can add the following to your `User` model:
+
+```php
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class User extends Authenticatable implements MustVerifyEmail
+```
+Then you can use the following middleware to protect your routes:
+
+```php
+EnsureEmailIsVerified::redirectTo('auth.verification.notice'),
+```
+
 ## Testing
 
 ```bash

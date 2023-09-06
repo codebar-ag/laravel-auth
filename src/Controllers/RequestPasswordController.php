@@ -9,7 +9,7 @@ class RequestPasswordController
 {
     public function index()
     {
-        return view('laravel-auth::forgot-password');
+        return view('auth::forgot-password');
     }
 
     public function store(RequestPasswordRequest $request)
@@ -18,6 +18,6 @@ class RequestPasswordController
 
         flash(__('passwords.sent'), 'success');
 
-        return redirect()->route('request-password');
+        return redirect()->back();
     }
 }

@@ -2,7 +2,6 @@
 
 namespace CodebarAg\LaravelAuth\Controllers;
 
-
 use App\Models\User;
 use CodebarAg\LaravelAuth\Requests\ResetPasswordRequest;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +13,7 @@ class ResetPasswordController
 {
     public function index()
     {
-        return view('laravel-auth::reset-password')
+        return view('auth::reset-password')
             ->with([
                 'token' => request()->token,
                 'email' => request()->email,

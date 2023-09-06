@@ -24,7 +24,7 @@ class ResetPasswordNotification extends Notification
         return (new MailMessage())
             ->line(__('You are receiving this email because we received a password reset request for your account.'))
             ->action(__('Reset Password'), $this->url)
-            ->line(__('This password reset link will expire in 60 minutes.'))
+            ->line(__('This password reset link will expire in '.$this->expirationInMinutes.' minutes.'))
             ->line(__('If you did not request a password reset, no further action is required.'));
     }
 

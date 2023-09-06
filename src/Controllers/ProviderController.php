@@ -3,10 +3,8 @@
 namespace CodebarAg\LaravelAuth\Controllers;
 
 use CodebarAg\LaravelAuth\Enums\ProviderEnum;
-use CodebarAg\LaravelAuth\Facades\LaravelAuth;
 use CodebarAg\LaravelAuth\Models\AuthProvider;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 use Laravel\Socialite\Facades\Socialite;
 
 class ProviderController

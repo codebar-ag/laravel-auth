@@ -11,16 +11,16 @@ class EmailVerificationController
     public function index(Request $request)
     {
         if ($request->user()->hasVerifiedEmail()) {
-            return redirect()->route('frontend.start.index');
+            return redirect()->intended();
         }
 
-        return view('laravel-auth::verify-email');
+        return view('auth::verify-email');
     }
 
     public function send(Request $request)
     {
         if ($request->user()->hasVerifiedEmail()) {
-            return redirect()->route('frontend.start.index');
+            return redirect()->intended();
         }
 
         $request->user()->notify(new VerifyEmailNotification());

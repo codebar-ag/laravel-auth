@@ -2,10 +2,10 @@
 
 namespace CodebarAg\LaravelAuth\Observers;
 
+use App\Models\User;
 use CodebarAg\LaravelAuth\Models\AuthProvider;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use App\Models\User;
 
 class AuthProviderObserver
 {
@@ -19,7 +19,7 @@ class AuthProviderObserver
             ],
             [
                 'name' => $authProvider->name,
-                'email' => Str::random(32) . '@' . $domain,
+                'email' => Str::random(32).'@'.$domain,
                 'password' => Hash::make(Str::random(32)),
             ]
         );

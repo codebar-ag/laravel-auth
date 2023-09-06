@@ -3,21 +3,29 @@
 namespace CodebarAg\LaravelAuth;
 
 use CodebarAg\LaravelAuth\Commands\LaravelAuthCommand;
+use CodebarAg\LaravelAuth\Listeners\RayListener;
 use CodebarAg\LaravelAuth\Models\AuthProvider;
 use CodebarAg\LaravelAuth\Observers\AuthProviderObserver;
+use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\URL;
 use SocialiteProviders\Manager\SocialiteWasCalled;
 use SocialiteProviders\Microsoft\MicrosoftExtendSocialite;
+use Spatie\Honeypot\Events\SpamDetectedEvent;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class LaravelAuthServiceProvider extends PackageServiceProvider
 {
-
     protected $events = [
         SocialiteWasCalled::class => [
             MicrosoftExtendSocialite::class.'@handle',
+        ],
+        SpamDetectedEvent::class => [
+            RayListener::class,
         ],
     ];
 
@@ -31,12 +39,12 @@ class LaravelAuthServiceProvider extends PackageServiceProvider
         $package
             ->name('laravel-auth')
             ->hasConfigFile('laravel-auth')
-            ->hasRoute('laravel-auth')
-            ->hasViews('laravel-auth')
+            ->hasRoutes('auth')
+            ->hasViews()
             ->hasAssets()
             ->hasMigration('create_auth_provider_table')
             ->hasCommand(LaravelAuthCommand::class)
-            ->hasInstallCommand(function(InstallCommand $command) {
+            ->hasInstallCommand(function (InstallCommand $command) {
                 $command
                     ->publishAssets()
                     ->publishMigrations();
@@ -54,5 +62,16 @@ class LaravelAuthServiceProvider extends PackageServiceProvider
         }
 
         AuthProvider::observe(AuthProviderObserver::class);
+
+        VerifyEmail::createUrlUsing(function ($notifiable) {
+            return URL::temporarySignedRoute(
+                name:'auth.verification.verify',
+                expiration: Carbon::now()->addMinutes(config('laravel-auth.link_expiration_in_minutes', 60)),
+                parameters: [
+                    'id' => $notifiable->getKey(),
+                    'hash' => sha1($notifiable->getEmailForVerification()),
+                ]
+            );
+        });
     }
 }
