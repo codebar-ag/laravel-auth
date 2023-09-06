@@ -37,11 +37,12 @@ class LaravelAuthServiceProvider extends PackageServiceProvider
             ->hasViews()
             ->hasAssets()
             ->hasMigration('create_auth_provider_table')
-            ->hasCommand(LaravelAuthCommand::class)
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command
+                    ->publishConfigFile()
                     ->publishAssets()
-                    ->publishMigrations();
+                    ->publishMigrations()
+                    ->askToRunMigrations();
             });
     }
 
