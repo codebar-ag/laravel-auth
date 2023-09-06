@@ -15,7 +15,6 @@ class LoginController
 
     public function store(LoginRequest $loginRequest)
     {
-        ray($loginRequest->all());
         $credentials = [
             'email' => $loginRequest->email,
             'password' => $loginRequest->password,
