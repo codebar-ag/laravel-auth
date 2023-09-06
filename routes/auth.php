@@ -15,7 +15,7 @@ Route::prefix('auth')->name('auth.')->middleware(['web'])->group(function () {
             Route::get('/')->uses([LoginController::class, 'index'])
                 ->name('login');
 
-            Route::post('/')->uses([LoginController::class, 'store'])
+            Route::post('/store')->uses([LoginController::class, 'store'])
                 ->middleware(ProtectAgainstSpam::class)
                 ->name('login.store');
         });

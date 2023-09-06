@@ -2,7 +2,6 @@
 
 namespace CodebarAg\LaravelAuth;
 
-use CodebarAg\LaravelAuth\Commands\LaravelAuthCommand;
 use CodebarAg\LaravelAuth\Models\AuthProvider;
 use CodebarAg\LaravelAuth\Observers\AuthProviderObserver;
 use Illuminate\Auth\Notifications\VerifyEmail;

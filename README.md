@@ -1,9 +1,9 @@
 <img src="https://banners.beyondco.de/Laravel%20Auth.png?theme=light&packageManager=composer+require&packageName=codebar-ag%2Flaravel-auth&pattern=circuitBoard&style=style_1&description=An+opinionated+way+to+authenticate+in+laravel&md=1&showWatermark=0&fontSize=175px&images=document-report">
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/codebar-ag/laravel-docuware.svg?style=flat-square)](https://packagist.org/packages/codebar-ag/laravel-docuware)
-[![GitHub-Tests](https://github.com/codebar-ag/laravel-docuware/actions/workflows/run-tests.yml/badge.svg?branch=main)](https://github.com/codebar-ag/laravel-docuware/actions/workflows/run-tests.yml)
-[![GitHub Code Style](https://github.com/codebar-ag/laravel-docuware/actions/workflows/fix-php-code-style-issues.yml/badge.svg?branch=main)](https://github.com/codebar-ag/laravel-docuware/actions/workflows/fix-php-code-style-issues.yml)
-[![Total Downloads](https://img.shields.io/packagist/dt/codebar-ag/laravel-docuware.svg?style=flat-square)](https://packagist.org/packages/codebar-ag/laravel-docuware)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/codebar-ag/laravel-auth.svg?style=flat-square)](https://packagist.org/packages/codebar-ag/laravel-auth)
+[![GitHub-Tests](https://github.com/codebar-ag/laravel-auth/actions/workflows/run-tests.yml/badge.svg?branch=main)](https://github.com/codebar-ag/laravel-auth/actions/workflows/run-tests.yml)
+[![GitHub Code Style](https://github.com/codebar-ag/laravel-auth/actions/workflows/fix-php-code-style-issues.yml/badge.svg?branch=main)](https://github.com/codebar-ag/laravel-auth/actions/workflows/fix-php-code-style-issues.yml)
+[![Total Downloads](https://img.shields.io/packagist/dt/codebar-ag/laravel-auth.svg?style=flat-square)](https://packagist.org/packages/codebar-ag/laravel-auth)
 
 This package was developed to give you a quick start to authenticate in laravel. It is opinionated and uses the following packages:
 
@@ -79,27 +79,24 @@ Finally, run the following command:
 php artisan auth:install
 ```
 
-## 🏗 Usage
-
-```php
-use CodebarAg\DocuWare\Facades\DocuWare;
-
-/**
- * Return all organizations.
- */
-$cabinets = DocuWare::getOrganizations();
-```
-
 ## 🚏 Routes
 
 Below are the following routes provided by this package:
 
-| Method | URI               | Name             | Middleware |
-|--------|-------------------|------------------| --- |
-| GET    | /auth/login       | auth.login       | web |
-| POST   | /auth/login/store | auth.login.store | web |
-| ANY    | /auth/logout      | auth.logout      | web |
-
+| Method      | URI                                   | Name                        | Middleware |
+|-------------|---------------------------------------|-----------------------------|------------|
+| GET \| HEAD | /auth/login                           | auth.login                  | web        |
+| POST        | /auth/login/store                     | auth.login.store            | web        |
+| ANY         | /auth/logout                          | auth.logout                 | web        |
+| GET \| HEAD | /auth/password                        | auth.request-password       | web        |
+| POST        | /auth/password/store                  | auth.request-password.store | web        |
+| POST        | /auth/password/reset                  | auth.reset-password         | web        |
+| GET \| HEAD | /auth/password/token/{token}          | auth.reset-password.store   | web        |
+| GET \| HEAD | /auth/service/{service}               | auth.provider               | web        |
+| GET \| HEAD | /auth/service/{service}/redirect      | auth.provider.redirect      | web        |
+| GET \| HEAD | /auth/email/verify                    | auth.verification.notice    | web        |
+| GET \| HEAD | /auth/email/verify/{id}/{hash}        | auth.verification.verify    | web        |
+| POST        | /auth/email/verification-notification | auth.verification.send      | web        |
 
 ## 🪐 Nova Adjustments
 Add the user menu for logout to your `NovaServiceProvider` boot method:
