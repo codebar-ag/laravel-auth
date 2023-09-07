@@ -17,9 +17,9 @@ return [
     |
     */
     'redirect' => [
-//        'login' => 'dashboard',
-//        'logout' => '',
-//        'password-reset' => '',
+        //        'login' => 'dashboard',
+        //        'logout' => '',
+        //        'password-reset' => '',
     ],
 
     /*
