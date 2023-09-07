@@ -9,7 +9,8 @@ This package was developed to give you a quick start to authenticate in laravel.
 
 ## 💡 What is Laravel Auth?
 
-Laravel Auth is an opinionated way to authenticate in laravel.
+Laravel Auth is an internal Laravel Nova Authentication replacement to gain more control over authorizing into Laravel Nova.
+
 
 ## 🛠 Requirements
 
@@ -64,13 +65,35 @@ MICROSOFT_TENANT_ID=your-tenant-id
 APP_URL=https://your-expose-or-ngrok-url.com
 
 # ✅ This is recommended for production as well:
-MICROSOFT_REDIRECT_URI="${APP_URL}"/auth/service/microsoft/redirect
+MICROSOFT_REDIRECT_URI="${APP_URL}/auth/service/microsoft/redirect"
 ```
 
 Add the following trait to your `User` model:
 
 ```php
 use CodebarAg\LaravelAuth\Traits\HasAuthProviders;
+```
+
+Update your `App\Http\Middleware\Authenticate` middleware:
+```php
+<?php
+
+namespace App\Http\Middleware;
+
+use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use Illuminate\Http\Request;
+
+class Authenticate extends Middleware
+{
+    /**
+     * Get the path the user should be redirected to when they are not authenticated.
+     */
+    protected function redirectTo(Request $request): ?string
+    {
+        return $request->expectsJson() ? null : route('auth.login');
+    }
+}
+
 ```
 
 Finally, run the following command:
@@ -118,7 +141,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
         Nova::userMenu(function (Request $request, Menu $menu) {
             return $menu
-                ->append(MenuItem::externalLink('Logout', '/auth/logout'));
+                ->append(MenuItem::externalLink('Logout', route('auth.logout')));
         });
 ```
 
@@ -141,9 +164,9 @@ Next in your `nova.php` config add the following:
 
 Next in your `NovaServiceProvider` replace the routes method with the following:
 
-Note: you can not register routes for `->withAuthenticationRoutes()` or `->withPasswordResetRoutes()` as this will override the changes we made in the `nova.php` config to routes.
+Note: you can `not` register routes for `->withAuthenticationRoutes()` or `->withPasswordResetRoutes()` as this will override the changes we made in the `nova.php` config to routes.
 
-```php
+```diff
     /**
      * Register the Nova routes.
      *
@@ -151,7 +174,11 @@ Note: you can not register routes for `->withAuthenticationRoutes()` or `->withP
      */
     protected function routes()
     {
-        Nova::routes();
+-        Nova::routes()
+-            ->withAuthenticationRoutes()
+-            ->withPasswordResetRoutes();
++        Nova::routes();
+
     }
 ```
 
@@ -171,6 +198,25 @@ This is the contents of the published config file:
 // config for CodebarAg/LaravelAuth
 
 return [
+    /*
+    |--------------------------------------------------------------------------
+    | Redirect Settings
+    |--------------------------------------------------------------------------
+    | You may like to define a different route once the user is
+    | logged in or out. If no redirects are defined, the package will redirect to the
+    | intended route. (This is the normal Laravel behaviour)
+    |
+    | Use the route name as defined in your routes file.
+    |
+    | If password-reset is not defined, the package will redirect to the login redirect route.
+    |
+    */
+    'redirect' => [
+        // 'login' => 'dashboard',
+        // 'logout' => '',
+        // 'password-reset' => '',
+    ],
+    
     /*
     |--------------------------------------------------------------------------
     | Logo Settings

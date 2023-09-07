@@ -63,6 +63,10 @@ class ResetPasswordController
 
         flash(__('passwords.reset'), 'success');
 
-        return redirect()->intended();
+        return redirect()->intended(
+            config('laravel-auth.redirect.password-reset') ?
+                route(config('laravel-auth.redirect.password-reset')) :
+                '/'
+        );
     }
 }

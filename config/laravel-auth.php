@@ -5,6 +5,25 @@
 return [
     /*
     |--------------------------------------------------------------------------
+    | Redirect Settings
+    |--------------------------------------------------------------------------
+    | You may like to define a different route once the user is
+    | logged in or out. If no redirects are defined, the package will redirect to the
+    | intended route. (This is the normal Laravel behaviour)
+    |
+    | Use the route name as defined in your routes file.
+    |
+    | If password-reset is not defined, the package will redirect to the login redirect route.
+    |
+    */
+    'redirect' => [
+//        'login' => 'dashboard',
+//        'logout' => '',
+//        'password-reset' => '',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Logo Settings
     |--------------------------------------------------------------------------
     | You may like to define a different logo for the login page.

@@ -15,6 +15,10 @@ class LogoutController
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->intended('/nova');
+        return redirect()->intended(
+            config('laravel-auth.redirect.logout') ?
+                route(config('laravel-auth.redirect.logout')) :
+                '/'
+        );
     }
 }

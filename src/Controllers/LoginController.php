@@ -28,6 +28,10 @@ class LoginController
 
         $loginRequest->session()->regenerate();
 
-        return redirect()->intended();
+        return redirect()->intended(
+            config('laravel-auth.redirect.login') ?
+                route(config('laravel-auth.redirect.login')) :
+                '/'
+        );
     }
 }
