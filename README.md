@@ -75,23 +75,13 @@ use CodebarAg\LaravelAuth\Traits\HasAuthProviders;
 ```
 
 Update your `App\Http\Middleware\Authenticate` middleware:
-```php
-<?php
 
-namespace App\Http\Middleware;
-
-use Illuminate\Auth\Middleware\Authenticate as Middleware;
-use Illuminate\Http\Request;
-
-class Authenticate extends Middleware
+```diff
+...
+protected function redirectTo(Request $request): ?string
 {
-    /**
-     * Get the path the user should be redirected to when they are not authenticated.
-     */
-    protected function redirectTo(Request $request): ?string
-    {
-        return $request->expectsJson() ? null : route('auth.login');
-    }
+-    return $request->expectsJson() ? null : route('login');
++   return $request->expectsJson() ? null : route('auth.login');
 }
 
 ```
@@ -178,7 +168,6 @@ Note: you can `not` register routes for `->withAuthenticationRoutes()` or `->wit
 -            ->withAuthenticationRoutes()
 -            ->withPasswordResetRoutes();
 +        Nova::routes();
-
     }
 ```
 
