@@ -2,6 +2,8 @@
 
 // config for CodebarAg/LaravelAuth
 
+use CodebarAg\LaravelAuth\Enums\ProviderEnum;
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -67,4 +69,18 @@ return [
     |
     */
     'toast_fade_time_in_milliseconds' => 5000,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Provider Settings
+    |--------------------------------------------------------------------------
+    | By default, all providers are enabled.
+    | You may disable a provider by adding it to the disabled array.
+    |
+    */
+    'providers' => [
+        'disabled' => [
+             ProviderEnum::MICROSOFT_OFFICE_365(),
+        ],
+    ]
 ];

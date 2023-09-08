@@ -13,6 +13,8 @@ class ProviderController
     {
         $providerEnum = ProviderEnum::from($service);
 
+        $this->allowed($providerEnum);
+
         $fnName = $providerEnum->value;
 
         return $this->$fnName();
@@ -22,11 +24,20 @@ class ProviderController
     {
         $providerEnum = ProviderEnum::from($service);
 
+        $this->allowed($providerEnum);
+
         $provider = $providerEnum->value;
 
         $fnName = $provider.'Redirect';
 
         return $this->$fnName();
+    }
+
+    protected function allowed($provider)
+    {
+        if (in_array($provider->value, config('laravel-auth.providers.disabled'))) {
+            abort(503);
+        }
     }
 
     public function microsoft()
