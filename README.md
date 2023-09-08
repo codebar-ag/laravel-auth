@@ -55,7 +55,7 @@ Add the following environment variables to your `.env` file:
 ```bash
 MICROSOFT_CLIENT_ID=your-client-id
 MICROSOFT_CLIENT_SECRET=your-client-secret
-MICROSOFT_REDIRECT_URI="${APP_URL}"/auth/service/microsoft/redirect
+MICROSOFT_REDIRECT_URI="${APP_URL}/auth/service/microsoft/redirect"
 MICROSOFT_TENANT_ID=your-tenant-id
 ```
 
