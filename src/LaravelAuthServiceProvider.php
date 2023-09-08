@@ -35,6 +35,7 @@ class LaravelAuthServiceProvider extends PackageServiceProvider
             ->hasRoutes('auth')
             ->hasViews()
             ->hasAssets()
+            ->hasTranslations()
             ->hasMigration('create_auth_provider_table')
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command

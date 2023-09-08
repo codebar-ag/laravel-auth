@@ -311,6 +311,35 @@ You use verification in nova, add the middleware into in your `nova.php` config:
 
 ## 🎨 Customisation
 
+You can publish the assets using:
+
+```bash
+php artisan vendor:publish --tag=auth-assets
+```
+
+You can publish the config using:
+
+```bash
+php artisan vendor:publish --tag=auth-config
+```
+
+You can publish the migrations using:
+
+```bash
+php artisan vendor:publish --tag=auth-migrations
+```
+
+You can publish the translations using:
+
+```bash
+php artisan vendor:publish --tag=auth-translations
+```
+
+This package uses [Laravel Honeypot](https://github.com/spatie/laravel-honeypot) to prevent spam.
+Check out the [documentation](https://github.com/spatie/laravel-honeypot#readme) to learn how to customise it.
+
+```bash
+
 You can publish the views using:
 
 ```bash
