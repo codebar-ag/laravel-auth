@@ -80,7 +80,7 @@ return [
     */
     'providers' => [
         'disabled' => [
-             ProviderEnum::MICROSOFT_OFFICE_365(),
+            ProviderEnum::MICROSOFT_OFFICE_365(),
         ],
-    ]
+    ],
 ];

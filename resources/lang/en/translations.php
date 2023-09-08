@@ -20,16 +20,13 @@ return [
     'confirm-password' => 'Confirm Password', // Confirm Password label text
     'remember-me' => 'Remember Me', // Remember me checkbox text
 
-
     // forgot-password.blade.php
     'forgot-your-password' => 'Forgot Your Password?', // Forgot password header text
-
 
     // login.blade.php
     'login' => 'Login', // Login header text
 
     'forgot-password' => 'Forgot Password?', // Forgot password link text
-
 
     // reset-password.blade.php
     'reset-your-password' => 'Reset Your Password', // Reset password header text
