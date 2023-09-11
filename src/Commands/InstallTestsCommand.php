@@ -15,9 +15,9 @@ class InstallTestsCommand extends Command
     {
         $this->comment('Publishing Auth Tests...');
 
-        File::copyDirectory(__DIR__ . '/../../stubs/tests/', base_path('tests'));
+        File::copyDirectory(__DIR__.'/../../stubs/tests/', base_path('tests'));
 
-        if(file_exists(base_path('phpunit.xml'))){
+        if (file_exists(base_path('phpunit.xml'))) {
             $this->replaceInFile('<testsuites>', '<testsuites>
         <testsuite name="Auth">
             <directory>tests/Auth</directory>
@@ -25,7 +25,7 @@ class InstallTestsCommand extends Command
             );
         }
 
-        if(file_exists(base_path('phpunit.xml.dist'))){
+        if (file_exists(base_path('phpunit.xml.dist'))) {
             $this->replaceInFile('<testsuites>', '<testsuites>
         <testsuite name="Auth">
             <directory>tests/Auth</directory>
@@ -33,14 +33,12 @@ class InstallTestsCommand extends Command
             );
         }
 
-        if(file_exists(base_path('tests/Pest.php'))){
+        if (file_exists(base_path('tests/Pest.php'))) {
             $this->replaceInFile(')->in(\'Feature\');',
                 ')->in(\'Feature\', \'Auth\');',
                 base_path('tests/Pest.php')
             );
         }
-
-
 
         $this->comment('All done');
 

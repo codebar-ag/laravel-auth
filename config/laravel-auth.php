@@ -70,7 +70,6 @@ return [
     */
     'toast_fade_time_in_milliseconds' => 5000,
 
-
     /*
     |--------------------------------------------------------------------------
     | Password Reset Settings

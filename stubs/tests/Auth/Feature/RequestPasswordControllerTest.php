@@ -25,8 +25,8 @@ test('unauthorized auth.request-password.store', function () {
     $user = User::factory()->create();
 
     $this->post(route('auth.request-password.store'), [
-            'email' => $user->email,
-        ])
+        'email' => $user->email,
+    ])
         ->assertSessionDoesntHaveErrors()
         ->assertRedirect();
 
