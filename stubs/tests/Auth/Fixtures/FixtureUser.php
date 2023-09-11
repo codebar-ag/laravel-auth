@@ -1,6 +1,6 @@
 <?php
 
-namespace CodebarAg\LaravelAuth\Tests\Fixtures;
+namespace CodebarAg\LaravelAuth\Tests\Auth\Fixtures;
 
 use CodebarAg\LaravelAuth\Traits\HasAuthProviders;
 use Illuminate\Contracts\Auth\MustVerifyEmail;

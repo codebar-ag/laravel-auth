@@ -11,9 +11,9 @@ test('email verification screen can be rendered', function () {
     ]);
 
     $this->actingAs($user)
-        ->get('/email/verify')
+        ->get(route('auth.verification.notice'))
         ->assertOk();
-})->group('auth', 'verify-email')->skip();
+})->group('auth', 'verify-email');
 
 test('email can be verified', function () {
     Event::fake();
@@ -23,19 +23,19 @@ test('email can be verified', function () {
     ]);
 
     $verificationUrl = URL::temporarySignedRoute(
-        'verification.verify',
+        'auth.verification.verify',
         now()->addMinutes(60),
         ['id' => $user->id, 'hash' => sha1($user->email)]
     );
 
     $this->actingAs($user)
         ->get($verificationUrl)
-        ->assertRedirect(route('frontend.start.index'));
+        ->assertRedirect();
 
     Event::assertDispatched(Verified::class);
 
     expect($user->fresh()->hasVerifiedEmail())->toBeTrue();
-})->group('auth', 'verify-email')->skip();
+})->group('auth', 'verify-email');
 
 test('email can not verified with invalid hash', function () {
     $user = User::factory()->create([
@@ -43,12 +43,13 @@ test('email can not verified with invalid hash', function () {
     ]);
 
     $verificationUrl = URL::temporarySignedRoute(
-        'verification.verify',
+        'auth.verification.verify',
         now()->addMinutes(60),
         ['id' => $user->id, 'hash' => sha1('wrong-email')]
     );
 
-    $this->actingAs($user)->get($verificationUrl);
+    $this->actingAs($user)
+        ->get($verificationUrl);
 
     expect($user->fresh()->hasVerifiedEmail())->toBeFalse();
-})->group('auth', 'verify-email')->skip();
+})->group('auth', 'verify-email');
