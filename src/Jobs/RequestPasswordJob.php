@@ -51,11 +51,13 @@ class RequestPasswordJob implements ShouldQueue
             ->where('email', $this->email)
             ->sole();
 
-        DB::table('password_resets')->where('email', $this->email)->delete();
+        $table = config('laravel-auth.password_reset_table', 'password_resets');
+
+        DB::table($table)->where('email', $this->email)->delete();
 
         $token = hash_hmac('sha256', Str::random(40), config('app.key'));
 
-        DB::table('password_resets')->insert([
+        DB::table($table)->insert([
             'email' => $this->email,
             'token' => $token,
             'created_at' => now(),

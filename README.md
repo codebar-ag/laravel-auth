@@ -254,7 +254,17 @@ return [
     */
     'toast_fade_time_in_milliseconds' => 5000,
     
-        /*
+    /*
+    |--------------------------------------------------------------------------
+    | Password Reset Settings
+    |--------------------------------------------------------------------------
+    | By default, the package will use the password_resets table.
+    | You may define a different table name here.
+    |
+    */
+    'password_reset_table' => 'password_resets',
+    
+    /*
     |--------------------------------------------------------------------------
     | Provider Settings
     |--------------------------------------------------------------------------
@@ -335,8 +345,7 @@ You can publish the translations using:
 php artisan vendor:publish --tag=auth-translations
 ```
 
-This package uses [Laravel Honeypot](https://github.com/spatie/laravel-honeypot) to prevent spam.
-Check out the [documentation](https://github.com/spatie/laravel-honeypot#readme) to learn how to customise it.
+This package uses [Laravel Honeypot](https://github.com/spatie/laravel-honeypot) to prevent spam.Check out the [documentation](https://github.com/spatie/laravel-honeypot#readme) to learn how to customise it.
 
 ```bash
 

@@ -16,7 +16,7 @@
     <body class="font-sans antialiased h-full">
 
         @if (flash()->message)
-            <x-auth::flash-message :message="flash()->message"/>
+            <x-auth::flash-message :status="flash()->class" :message="flash()->message"/>
         @endif
 
         <main>
@@ -27,10 +27,9 @@
 
                     {{ $slot }}
 
+                    <x-auth::footer/>
                 </div>
             </div>
         </main>
-
-        <x-auth::footer/>
     </body>
 </html>

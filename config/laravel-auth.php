@@ -70,6 +70,17 @@ return [
     */
     'toast_fade_time_in_milliseconds' => 5000,
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Password Reset Settings
+    |--------------------------------------------------------------------------
+    | By default, the package will use the password_resets table.
+    | You may define a different table name here.
+    |
+    */
+    'password_reset_table' => 'password_resets',
+
     /*
     |--------------------------------------------------------------------------
     | Provider Settings
