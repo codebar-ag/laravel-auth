@@ -92,6 +92,11 @@ Finally, run the following command:
 php artisan auth:install
 ```
 
+If you wish to add pest tests, run the following command:
+```bash
+php artisan auth:install-tests
+```
+
 ## 🚏 Routes
 
 Below are the following routes provided by this package:
