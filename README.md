@@ -281,7 +281,21 @@ return [
         'disabled' => [
             // ProviderEnum::MICROSOFT_OFFICE_365(),
         ],
-    ]
+    ],
+    
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Feature Settings
+    |--------------------------------------------------------------------------
+    | By default, all features are enabled.
+    | You may disable a provider by adding changing the value to false.
+    |
+    */
+    'features' => [
+        'password_reset' => true,
+        'email_verification' => true,
+    ],
 ];
 ```
 
