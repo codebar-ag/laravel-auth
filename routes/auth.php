@@ -20,22 +20,24 @@ Route::prefix('auth')->name('auth.')->middleware(['web'])->group(function () {
                 ->name('login.store');
         });
 
-        Route::prefix('password')->group(function () {
-            Route::get('/')->uses([RequestPasswordController::class, 'index'])
-                ->name('request-password');
+        if (config('laravel-auth.features.password_reset')) {
+            Route::prefix('password')->group(function () {
+                Route::get('/')->uses([RequestPasswordController::class, 'index'])
+                    ->name('request-password');
 
-            Route::post('store')->uses([RequestPasswordController::class, 'store'])
-                ->name('request-password.store')
-                ->middleware(ProtectAgainstSpam::class);
+                Route::post('store')->uses([RequestPasswordController::class, 'store'])
+                    ->name('request-password.store')
+                    ->middleware(ProtectAgainstSpam::class);
 
-            Route::get('token/{token}')->uses([ResetPasswordController::class, 'index'])
-                ->name('reset-password')
-                ->middleware('signed');
+                Route::get('token/{token}')->uses([ResetPasswordController::class, 'index'])
+                    ->name('reset-password')
+                    ->middleware('signed');
 
-            Route::post('reset')->uses([ResetPasswordController::class, 'store'])
-                ->name('reset-password.store')
-                ->middleware(ProtectAgainstSpam::class);
-        });
+                Route::post('reset')->uses([ResetPasswordController::class, 'store'])
+                    ->name('reset-password.store')
+                    ->middleware(ProtectAgainstSpam::class);
+            });
+        }
 
         Route::prefix('service')->group(function () {
             Route::get('{service}', [ProviderController::class, 'service'])->name('provider');
@@ -47,15 +49,17 @@ Route::prefix('auth')->name('auth.')->middleware(['web'])->group(function () {
         Route::any('logout')->uses(LogoutController::class)
             ->name('logout');
 
-        Route::prefix('email')->group(function () {
-            Route::get('verify')->uses([EmailVerificationController::class, 'index'])
-                ->name('verification.notice');
+        if (config('laravel-auth.features.email_verification')) {
+            Route::prefix('email')->group(function () {
+                Route::get('verify')->uses([EmailVerificationController::class, 'index'])
+                    ->name('verification.notice');
 
-            Route::get('verify/{id}/{hash}')->uses([EmailVerificationController::class, 'store'])
-                ->middleware(['signed'])->name('verification.verify');
+                Route::get('verify/{id}/{hash}')->uses([EmailVerificationController::class, 'store'])
+                    ->middleware(['signed'])->name('verification.verify');
 
-            Route::post('verification-notification')->uses([EmailVerificationController::class, 'send'])
-                ->name('verification.send');
-        });
+                Route::post('verification-notification')->uses([EmailVerificationController::class, 'send'])
+                    ->name('verification.send');
+            });
+        }
     });
 });

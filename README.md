@@ -218,11 +218,12 @@ return [
     | Logo Settings
     |--------------------------------------------------------------------------
     | You may like to define a different logo for the login page.
-    | The path is relative to the public folder.
+    | You can pass either a path relative to the public folder or a full url.
     |
     */
     'logo' => [
         'path' => 'vendor/auth/images/lock.svg',
+        // 'path' => 'https://example.test/images/logo.png',
     ],
 
     /*
@@ -281,7 +282,21 @@ return [
         'disabled' => [
             // ProviderEnum::MICROSOFT_OFFICE_365(),
         ],
-    ]
+    ],
+    
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Feature Settings
+    |--------------------------------------------------------------------------
+    | By default, all features are enabled.
+    | You may disable a provider by adding changing the value to false.
+    |
+    */
+    'features' => [
+        'password_reset' => true,
+        'email_verification' => true,
+    ],
 ];
 ```
 
