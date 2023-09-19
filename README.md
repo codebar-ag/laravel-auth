@@ -224,6 +224,7 @@ return [
     'logo' => [
         'path' => 'vendor/auth/images/lock.svg',
         // 'path' => 'https://example.test/images/logo.png',
+        'width' => '25%',
     ],
 
     /*
