@@ -97,7 +97,7 @@ If you wish to add pest tests, run the following command:
 php artisan auth:install-tests
 ```
 
-This command will attempt to automatically add the following to your `phpunit.xml` file:
+Next add the following to your `phpunit.xml` file:
 
 ```xml
 <testsuite name="Auth">
@@ -105,14 +105,8 @@ This command will attempt to automatically add the following to your `phpunit.xm
 </testsuite>
 ```
 
-It will also attempt to add the following to your `Pest.php` file:
+You will also need to add Auth to your `Pest.php` file:
 
-Before:
-```php
-uses(Tests\TestCase::class,)->in('Feature');
-```
-
-After:
 ```php
 uses(Tests\TestCase::class)->in('Feature', 'Auth');
 ```
