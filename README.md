@@ -92,9 +92,25 @@ Finally, run the following command:
 php artisan auth:install
 ```
 
+## 💉 Tests
+
 If you wish to add pest tests, run the following command:
 ```bash
 php artisan auth:install-tests
+```
+
+Next add the following to your `phpunit.xml` file:
+
+```xml
+<testsuite name="Auth">
+    <directory>tests/Auth</directory>
+</testsuite>
+```
+
+You will also need to add Auth to your `Pest.php` file:
+
+```php
+uses(Tests\TestCase::class)->in('Feature', 'Auth');
 ```
 
 ## 🚏 Routes

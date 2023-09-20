@@ -2,7 +2,6 @@
 
 namespace CodebarAg\LaravelAuth\Jobs;
 
-use App\Models\User;
 use CodebarAg\LaravelAuth\Notifications\ResetPasswordNotification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -12,8 +11,6 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
-
-use function App\Jobs\Auth\activity;
 
 class RequestPasswordJob implements ShouldQueue
 {
@@ -29,7 +26,9 @@ class RequestPasswordJob implements ShouldQueue
 
     public function handle(): void
     {
-        $user = User::query()
+        $userModel = config('laravel-auth.model.user');
+
+        $user = $userModel::query()
             ->where('email', $this->email)->exists();
 
         match ($user) {
@@ -47,7 +46,9 @@ class RequestPasswordJob implements ShouldQueue
 
     protected function processRequest(): void
     {
-        $user = User::query()
+        $userModel = config('laravel-auth.model.user');
+
+        $user = $userModel::query()
             ->where('email', $this->email)
             ->sole();
 

@@ -1,10 +1,10 @@
 <?php
 
-// config for CodebarAg/LaravelAuth
-
+use App\Models\User;
 use CodebarAg\LaravelAuth\Enums\ProviderEnum;
 
 return [
+
     /*
     |--------------------------------------------------------------------------
     | Redirect Settings
@@ -106,5 +106,15 @@ return [
     'features' => [
         'password_reset' => true,
         'email_verification' => true,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Models
+    |--------------------------------------------------------------------------
+    |
+    */
+    'model' => [
+        'user' => App\Models\User::class,
     ],
 ];
