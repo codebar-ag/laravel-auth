@@ -34,6 +34,7 @@ return [
     */
     'logo' => [
         'path' => 'vendor/auth/images/lock.svg',
+        'width' => '25%',
     ],
 
     /*

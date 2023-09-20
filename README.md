@@ -224,6 +224,7 @@ return [
     'logo' => [
         'path' => 'vendor/auth/images/lock.svg',
         // 'path' => 'https://example.test/images/logo.png',
+        'width' => '25%',
     ],
 
     /*
@@ -341,6 +342,12 @@ You use verification in nova, add the middleware into in your `nova.php` config:
 
 ## 🎨 Customisation
 
+You can publish the views using:
+
+```bash
+php artisan vendor:publish --tag=auth-views
+```
+
 You can publish the assets using:
 
 ```bash
@@ -366,14 +373,6 @@ php artisan vendor:publish --tag=auth-translations
 ```
 
 This package uses [Laravel Honeypot](https://github.com/spatie/laravel-honeypot) to prevent spam.Check out the [documentation](https://github.com/spatie/laravel-honeypot#readme) to learn how to customise it.
-
-```bash
-
-You can publish the views using:
-
-```bash
-php artisan vendor:publish --tag=auth-views
-```
 
 ## 🚧 Testing
 
