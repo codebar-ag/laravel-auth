@@ -10,6 +10,14 @@ class AuthProvider extends Model
 {
     protected $model;
 
+    protected $fillable = [
+        'user_id',
+        'provider',
+        'provider_id',
+        'name',
+        'email',
+    ];
+
     protected $casts = [
         'provider' => ProviderEnum::class,
     ];

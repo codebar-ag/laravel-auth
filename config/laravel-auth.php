@@ -6,14 +6,6 @@ use CodebarAg\LaravelAuth\Enums\ProviderEnum;
 return [
 
     /*
-      |--------------------------------------------------------------------------
-      | Authenticatable Model
-      |--------------------------------------------------------------------------
-      |
-      */
-    'model' => User::class,
-
-    /*
     |--------------------------------------------------------------------------
     | Redirect Settings
     |--------------------------------------------------------------------------
@@ -118,13 +110,11 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Feature Settings
+    | Models
     |--------------------------------------------------------------------------
-    | By default, all features are enabled.
-    | You may disable a provider by adding changing the value to false.
     |
     */
     'model' => [
-        'user' => \App\Models\User::class,
+        'user' => App\Models\User::class,
     ],
 ];
