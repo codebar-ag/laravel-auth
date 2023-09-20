@@ -23,6 +23,6 @@ class AuthProvider extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo($this->model::class);
+        return $this->belongsTo($this->model);
     }
 }
