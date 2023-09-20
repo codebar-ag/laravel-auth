@@ -12,8 +12,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 
-use function App\Jobs\Auth\activity;
-
 class RequestPasswordJob implements ShouldQueue
 {
     use Dispatchable;
