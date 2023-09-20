@@ -2,7 +2,6 @@
 
 namespace CodebarAg\LaravelAuth\Controllers;
 
-use App\Models\User;
 use CodebarAg\LaravelAuth\Requests\ResetPasswordRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -32,11 +31,13 @@ class ResetPasswordController
             ]);
         }
 
-        $user = User::query()
+        $userModel = config('laravel-auth.model.user');
+
+        $user = $userModel::query()
             ->where('email', $request->validated('email'))
             ->first();
 
-        if (! $user instanceof User) {
+        if (! $user instanceof $userModel) {
             throw ValidationException::withMessages([
                 'email' => __('Error'),
             ]);

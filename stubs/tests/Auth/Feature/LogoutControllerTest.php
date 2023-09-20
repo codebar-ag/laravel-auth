@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 use function Pest\Laravel\assertAuthenticated;
@@ -12,7 +11,9 @@ test('unauthorized auth.logout', function () {
 })->group('auth', 'logout');
 
 test('authorized auth.logout', function () {
-    $user = User::factory()->create([
+    $userModel = config('laravel-auth.model.user');
+
+    $user = $userModel::factory()->create([
         'email_verified_at' => null,
     ]);
 

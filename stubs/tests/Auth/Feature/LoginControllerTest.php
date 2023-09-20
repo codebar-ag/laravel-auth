@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Controllers\Employees;
 
-use App\Models\User;
+use function Pest\Laravel\assertAuthenticated;
 
 it('unauthorized auth.login', function () {
     $this->get(route('auth.login'))
@@ -10,17 +10,22 @@ it('unauthorized auth.login', function () {
 })->group('auth', 'login');
 
 it('authorized auth.login', function () {
-    $user = User::factory()->create([
+    $userModel = config('laravel-auth.model.user');
+
+    $user = $userModel::factory()->create([
         'email_verified_at' => null,
     ]);
 
     $this->actingAs($user)
         ->get(route('auth.login'))
         ->assertRedirect();
+
 })->group('auth', 'login');
 
 test('authorized customer.auth.login.store', function () {
-    $user = User::factory()->create([
+    $userModel = config('laravel-auth.model.user');
+
+    $user = $userModel::factory()->create([
         'email_verified_at' => null,
     ]);
 
@@ -30,4 +35,6 @@ test('authorized customer.auth.login.store', function () {
             'password' => 'password',
         ])
         ->assertRedirect();
+
+    assertAuthenticated(null, $user);
 })->group('auth', 'login');

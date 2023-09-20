@@ -97,6 +97,26 @@ If you wish to add pest tests, run the following command:
 php artisan auth:install-tests
 ```
 
+This command will attempt to automatically add the following to your `phpunit.xml` file:
+
+```xml
+<testsuite name="Auth">
+    <directory>tests/Auth</directory>
+</testsuite>
+```
+
+It will also attempt to add the following to your `Pest.php` file:
+
+Before:
+```php
+uses(Tests\TestCase::class,)->in('Feature');
+```
+
+After:
+```php
+uses(Tests\TestCase::class)->in('Feature', 'Auth');
+```
+
 ## 🚏 Routes
 
 Below are the following routes provided by this package:

@@ -23,6 +23,7 @@ class AuthProvider extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo($this->model);
+        return $this->belongsTo(config('laravel-auth.model.user'));
+
     }
 }

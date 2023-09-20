@@ -1,19 +1,19 @@
 <?php
 
-use App\Models\User;
 use Illuminate\Routing\Middleware\ValidateSignature;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 test('unauthorized auth.reset-password.store with valid token', function () {
-    $user = User::factory()->create([
+    $userModel = config('laravel-auth.model.user');
+
+    $user = $userModel::factory()->create([
         'email_verified_at' => null,
     ]);
 
-    $this->actingAs($user)
-        ->post(route('auth.request-password.store'), [
-            'email' => $user->email,
-        ]);
+    $this->post(route('auth.request-password.store'), [
+        'email' => $user->email,
+    ]);
 
     $entry = DB::table(config('laravel-auth.password_reset_table'))->get()->first();
 
@@ -30,16 +30,20 @@ test('unauthorized auth.reset-password.store with valid token', function () {
 
     $response->assertSessionDoesntHaveErrors();
     $response->assertRedirect();
-})->group('auth', 'reset-password');
+})->group('auth', 'reset-password')
+    ->skip(fn () => config('laravel-auth.features.password_reset') === false, 'This test is not applicable when password reset is disabled');
 
 test('authorized reset-password.store', function () {
+    $userModel = config('laravel-auth.model.user');
+
     $token = Str::random();
 
-    $user = User::factory()->create([
+    $user = $userModel::factory()->create([
         'email_verified_at' => null,
     ]);
 
     $this->actingAs($user)
         ->post(route('auth.reset-password.store', $token))
         ->assertRedirect();
-})->group('auth', 'reset-password');
+})->group('auth', 'reset-password')
+    ->skip(fn () => config('laravel-auth.features.password_reset') === false, 'This test is not applicable when password reset is disabled');
