@@ -92,6 +92,8 @@ Finally, run the following command:
 php artisan auth:install
 ```
 
+## 💉 Tests
+
 If you wish to add pest tests, run the following command:
 ```bash
 php artisan auth:install-tests
