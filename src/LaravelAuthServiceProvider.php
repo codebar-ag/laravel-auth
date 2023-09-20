@@ -2,6 +2,7 @@
 
 namespace CodebarAg\LaravelAuth;
 
+use CodebarAg\LaravelAuth\Commands\InstallTestsCommand;
 use CodebarAg\LaravelAuth\Models\AuthProvider;
 use CodebarAg\LaravelAuth\Observers\AuthProviderObserver;
 use Illuminate\Auth\Notifications\VerifyEmail;
@@ -37,12 +38,14 @@ class LaravelAuthServiceProvider extends PackageServiceProvider
             ->hasAssets()
             ->hasTranslations()
             ->hasMigration('create_auth_provider_table')
+            ->hasCommand(InstallTestsCommand::class)
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command
                     ->publishConfigFile()
                     ->publishAssets()
                     ->publishMigrations()
                     ->askToRunMigrations();
+                //                    ->info('If you want to install the tests, run `php artisan auth:install-tests`');
             });
     }
 

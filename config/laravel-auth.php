@@ -34,6 +34,7 @@ return [
     */
     'logo' => [
         'path' => 'vendor/auth/images/lock.svg',
+        'width' => '25%',
     ],
 
     /*
@@ -72,6 +73,16 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Password Reset Settings
+    |--------------------------------------------------------------------------
+    | By default, the package will use the password_resets table.
+    | You may define a different table name here.
+    |
+    */
+    'password_reset_table' => 'password_resets',
+
+    /*
+    |--------------------------------------------------------------------------
     | Provider Settings
     |--------------------------------------------------------------------------
     | By default, all providers are enabled.
@@ -82,5 +93,18 @@ return [
         'disabled' => [
             ProviderEnum::MICROSOFT_OFFICE_365(),
         ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Feature Settings
+    |--------------------------------------------------------------------------
+    | By default, all features are enabled.
+    | You may disable a provider by adding changing the value to false.
+    |
+    */
+    'features' => [
+        'password_reset' => true,
+        'email_verification' => true,
     ],
 ];

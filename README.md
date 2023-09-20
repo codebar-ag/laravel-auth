@@ -92,6 +92,11 @@ Finally, run the following command:
 php artisan auth:install
 ```
 
+If you wish to add pest tests, run the following command:
+```bash
+php artisan auth:install-tests
+```
+
 ## 🚏 Routes
 
 Below are the following routes provided by this package:
@@ -213,11 +218,13 @@ return [
     | Logo Settings
     |--------------------------------------------------------------------------
     | You may like to define a different logo for the login page.
-    | The path is relative to the public folder.
+    | You can pass either a path relative to the public folder or a full url.
     |
     */
     'logo' => [
         'path' => 'vendor/auth/images/lock.svg',
+        // 'path' => 'https://example.test/images/logo.png',
+        'width' => '25%',
     ],
 
     /*
@@ -254,7 +261,17 @@ return [
     */
     'toast_fade_time_in_milliseconds' => 5000,
     
-        /*
+    /*
+    |--------------------------------------------------------------------------
+    | Password Reset Settings
+    |--------------------------------------------------------------------------
+    | By default, the package will use the password_resets table.
+    | You may define a different table name here.
+    |
+    */
+    'password_reset_table' => 'password_resets',
+    
+    /*
     |--------------------------------------------------------------------------
     | Provider Settings
     |--------------------------------------------------------------------------
@@ -266,7 +283,21 @@ return [
         'disabled' => [
             // ProviderEnum::MICROSOFT_OFFICE_365(),
         ],
-    ]
+    ],
+    
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Feature Settings
+    |--------------------------------------------------------------------------
+    | By default, all features are enabled.
+    | You may disable a provider by adding changing the value to false.
+    |
+    */
+    'features' => [
+        'password_reset' => true,
+        'email_verification' => true,
+    ],
 ];
 ```
 
@@ -311,6 +342,12 @@ You use verification in nova, add the middleware into in your `nova.php` config:
 
 ## 🎨 Customisation
 
+You can publish the views using:
+
+```bash
+php artisan vendor:publish --tag=auth-views
+```
+
 You can publish the assets using:
 
 ```bash
@@ -335,16 +372,7 @@ You can publish the translations using:
 php artisan vendor:publish --tag=auth-translations
 ```
 
-This package uses [Laravel Honeypot](https://github.com/spatie/laravel-honeypot) to prevent spam.
-Check out the [documentation](https://github.com/spatie/laravel-honeypot#readme) to learn how to customise it.
-
-```bash
-
-You can publish the views using:
-
-```bash
-php artisan vendor:publish --tag=auth-views
-```
+This package uses [Laravel Honeypot](https://github.com/spatie/laravel-honeypot) to prevent spam.Check out the [documentation](https://github.com/spatie/laravel-honeypot#readme) to learn how to customise it.
 
 ## 🚧 Testing
 
