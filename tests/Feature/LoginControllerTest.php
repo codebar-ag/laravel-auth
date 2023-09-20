@@ -5,7 +5,7 @@ namespace Tests\Feature\Controllers\Employees;
 it('unauthorized auth.login', function () {
     $response = $this->get(route('auth.login'));
     $response->assertOk();
-})->group('auth', 'login', 'test')->only();
+})->group('auth', 'login', 'test');
 
 it('authorized auth.login', function () {
     authenticatedUser();
