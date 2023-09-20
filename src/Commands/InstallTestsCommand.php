@@ -34,8 +34,8 @@ class InstallTestsCommand extends Command
         }
 
         if (file_exists(base_path('tests/Pest.php'))) {
-            $this->replaceInFile(')->in(\'Feature\');',
-                ')->in(\'Feature\', \'Auth\');',
+            $this->replaceInFile(')->in(\'Feature\'',
+                ')->in(\'Feature\', \'Auth\'',
                 base_path('tests/Pest.php')
             );
         }

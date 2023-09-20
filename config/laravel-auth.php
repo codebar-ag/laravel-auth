@@ -107,4 +107,16 @@ return [
         'password_reset' => true,
         'email_verification' => true,
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Feature Settings
+    |--------------------------------------------------------------------------
+    | By default, all features are enabled.
+    | You may disable a provider by adding changing the value to false.
+    |
+    */
+    'model' => [
+        'user' => \App\Models\User::class,
+    ],
 ];
