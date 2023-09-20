@@ -6,6 +6,10 @@ use CodebarAg\LaravelAuth\Enums\ProviderEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property int $provider_id
+ * @property string $provider
+ */
 class AuthProvider extends Model
 {
     protected $model;
