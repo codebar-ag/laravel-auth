@@ -1,7 +1,6 @@
 <?php
 
-// config for CodebarAg/LaravelAuth
-
+use App\Models\User;
 use CodebarAg\LaravelAuth\Enums\ProviderEnum;
 
 return [
@@ -12,7 +11,7 @@ return [
       |--------------------------------------------------------------------------
       |
       */
-    'model' => 'App\\Models\\User',
+    'model' => User::class,
 
     /*
     |--------------------------------------------------------------------------
