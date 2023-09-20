@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class AuthProvider extends Model
 {
-    protected Model $model;
+    protected $model;
 
     protected $casts = [
         'provider' => ProviderEnum::class,
