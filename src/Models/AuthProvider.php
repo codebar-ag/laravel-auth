@@ -20,6 +20,8 @@ class AuthProvider extends Model
         'provider_id',
         'name',
         'email',
+        'token',
+        'refresh_token',
     ];
 
     protected $casts = [
@@ -36,6 +38,5 @@ class AuthProvider extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(config('laravel-auth.model.user'));
-
     }
 }
