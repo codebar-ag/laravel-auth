@@ -85,15 +85,14 @@ return [
     |--------------------------------------------------------------------------
     | Provider Settings
     |--------------------------------------------------------------------------
-    | By default, all providers are enabled.
-    | You may disable a provider by adding it to the disabled array.
+    | Add the providers you want to use here.
+    | e.g ProviderEnum::MICROSOFT_OFFICE_365(),
     |
     */
     'providers' => [
-        'disabled' => [
-            ProviderEnum::MICROSOFT_OFFICE_365(),
-        ],
+        ProviderEnum::MICROSOFT_OFFICE_365(),
     ],
+
 
     /*
     |--------------------------------------------------------------------------
@@ -104,6 +103,8 @@ return [
     |
     */
     'features' => [
+        'basic' => true,
+        'sso' => true,
         'password_reset' => true,
         'email_verification' => true,
     ],

@@ -35,7 +35,7 @@ class ProviderController
 
     protected function allowed($provider)
     {
-        if (in_array($provider->value, config('laravel-auth.providers.disabled'))) {
+        if (!in_array($provider->value, config('laravel-auth.providers'))) {
             abort(503);
         }
     }
