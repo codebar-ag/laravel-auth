@@ -6,7 +6,6 @@ use CodebarAg\LaravelAuth\Enums\ProviderEnum;
 use CodebarAg\LaravelAuth\Models\AuthProvider;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
-use function _PHPStan_dfcaa3082\RingCentral\Psr7\try_fopen;
 
 class ProviderController
 {
@@ -50,7 +49,7 @@ class ProviderController
     {
         try {
             $socialiteUser = Socialite::driver(ProviderEnum::MICROSOFT_OFFICE_365()->value)->user();
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             flash(__('Authentication Error.'), 'warning');
 
             return redirect()->route('auth.login');
