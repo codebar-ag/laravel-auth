@@ -93,7 +93,6 @@ return [
         ProviderEnum::MICROSOFT_OFFICE_365(),
     ],
 
-
     /*
     |--------------------------------------------------------------------------
     | Feature Settings
