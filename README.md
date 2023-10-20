@@ -296,9 +296,7 @@ return [
     |
     */
     'providers' => [
-        'disabled' => [
-            // ProviderEnum::MICROSOFT_OFFICE_365(),
-        ],
+         ProviderEnum::MICROSOFT_OFFICE_365(),
     ],
     
     
@@ -311,6 +309,8 @@ return [
     |
     */
     'features' => [
+        'basic' => true,
+        'sso' => true,
         'password_reset' => true,
         'email_verification' => true,
     ],

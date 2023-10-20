@@ -15,9 +15,11 @@ Route::prefix('auth')->name('auth.')->middleware(['web'])->group(function () {
             Route::get('/')->uses([LoginController::class, 'index'])
                 ->name('login');
 
-            Route::post('/store')->uses([LoginController::class, 'store'])
-                ->middleware(ProtectAgainstSpam::class)
-                ->name('login.store');
+            if (config('laravel-auth.features.basic')) {
+                Route::post('/store')->uses([LoginController::class, 'store'])
+                    ->middleware(ProtectAgainstSpam::class)
+                    ->name('login.store');
+            }
         });
 
         if (config('laravel-auth.features.password_reset')) {

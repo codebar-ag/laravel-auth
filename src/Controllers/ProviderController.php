@@ -35,7 +35,7 @@ class ProviderController
 
     protected function allowed($provider)
     {
-        if (in_array($provider->value, config('laravel-auth.providers.disabled'))) {
+        if (! in_array($provider->value, config('laravel-auth.providers'))) {
             abort(503);
         }
     }
@@ -47,7 +47,13 @@ class ProviderController
 
     public function microsoftRedirect()
     {
-        $socialiteUser = Socialite::driver(ProviderEnum::MICROSOFT_OFFICE_365()->value)->user();
+        try {
+            $socialiteUser = Socialite::driver(ProviderEnum::MICROSOFT_OFFICE_365()->value)->user();
+        } catch (\Exception $e) {
+            flash(__('Authentication Error.'), 'warning');
+
+            return redirect()->route('auth.login');
+        }
 
         $provider = AuthProvider::updateOrCreate(
             [
