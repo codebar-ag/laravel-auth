@@ -51,9 +51,9 @@
 
     <div class="space-y-4">
         @if(config('laravel-auth.features.sso'))
-            @if(in_array(\CodebarAg\LaravelAuth\Enums\ProviderEnum::MICROSOFT_OFFICE_365(), config('laravel-auth.providers')))
+            @if(in_array(\CodebarAg\LaravelAuth\Enums\ProviderEnum::MICROSOFT_OFFICE_365, config('laravel-auth.providers')))
                 <x-auth::form.button.ahref
-                        :href="route('auth.provider', \CodebarAg\LaravelAuth\Enums\ProviderEnum::MICROSOFT_OFFICE_365())"
+                        :href="route('auth.provider', \CodebarAg\LaravelAuth\Enums\ProviderEnum::MICROSOFT_OFFICE_365->value)"
                         class="bg-gray-500 hover:bg-gray-400"
                 >
                     <svg class="fill-white w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 278050 333334" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd"><path fill="currentColor" d="M278050 305556l-29-16V28627L178807 0 448 66971l-448 87 22 200227 60865-23821V80555l117920-28193-17 239519L122 267285l178668 65976v73l99231-27462v-316z"/></svg>

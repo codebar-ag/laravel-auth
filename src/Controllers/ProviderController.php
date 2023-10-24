@@ -35,20 +35,20 @@ class ProviderController
 
     protected function allowed($provider)
     {
-        if (! in_array($provider->value, config('laravel-auth.providers'))) {
+        if (! in_array($provider, config('laravel-auth.providers'))) {
             abort(503);
         }
     }
 
     public function microsoft()
     {
-        return Socialite::driver(ProviderEnum::MICROSOFT_OFFICE_365()->value)->redirect();
+        return Socialite::driver(ProviderEnum::MICROSOFT_OFFICE_365->value)->redirect();
     }
 
     public function microsoftRedirect()
     {
         try {
-            $socialiteUser = Socialite::driver(ProviderEnum::MICROSOFT_OFFICE_365()->value)->user();
+            $socialiteUser = Socialite::driver(ProviderEnum::MICROSOFT_OFFICE_365->value)->user();
         } catch (\Exception $e) {
             flash(__('Authentication Error.'), 'warning');
 
@@ -57,7 +57,7 @@ class ProviderController
 
         $provider = AuthProvider::updateOrCreate(
             [
-                'provider' => ProviderEnum::MICROSOFT_OFFICE_365()->value,
+                'provider' => ProviderEnum::MICROSOFT_OFFICE_365->value,
                 'provider_id' => $socialiteUser->id,
             ],
             [

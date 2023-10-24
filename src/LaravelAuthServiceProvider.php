@@ -45,7 +45,6 @@ class LaravelAuthServiceProvider extends PackageServiceProvider
                     ->publishAssets()
                     ->publishMigrations()
                     ->askToRunMigrations();
-                //                    ->info('If you want to install the tests, run `php artisan auth:install-tests`');
             });
     }
 

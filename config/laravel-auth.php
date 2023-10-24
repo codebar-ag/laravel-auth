@@ -86,11 +86,11 @@ return [
     | Provider Settings
     |--------------------------------------------------------------------------
     | Add the providers you want to use here.
-    | e.g ProviderEnum::MICROSOFT_OFFICE_365(),
+    | e.g ProviderEnum::MICROSOFT_OFFICE_365,
     |
     */
     'providers' => [
-        ProviderEnum::MICROSOFT_OFFICE_365(),
+        ProviderEnum::MICROSOFT_OFFICE_365,
     ],
 
     /*

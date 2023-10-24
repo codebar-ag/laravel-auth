@@ -2,17 +2,10 @@
 
 namespace CodebarAg\LaravelAuth\Enums;
 
-use Spatie\Enum\Laravel\Enum;
-
 /**
  * @method static self MICROSOFT_OFFICE_365()
  */
-class ProviderEnum extends Enum
+enum ProviderEnum: string
 {
-    protected static function values(): array
-    {
-        return [
-            'MICROSOFT_OFFICE_365' => 'microsoft',
-        ];
-    }
+    case MICROSOFT_OFFICE_365 = 'microsoft';
 }
