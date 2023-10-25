@@ -21,7 +21,9 @@ class ResetPasswordController
 
     public function store(ResetPasswordRequest $request)
     {
-        $reset = DB::table('password_resets')
+        $table = config('laravel-auth.password_reset_table', 'password_reset_tokens');
+
+        $reset = DB::table($table)
             ->where('token', $request->validated('token'))
             ->sole();
 
@@ -58,7 +60,7 @@ class ResetPasswordController
             ]);
         }
 
-        DB::table('password_resets')->where('token', $request->validated('token'))->delete();
+        DB::table($table)->where('token', $request->validated('token'))->delete();
 
         session()->regenerate();
 
