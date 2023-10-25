@@ -75,11 +75,11 @@ return [
     |--------------------------------------------------------------------------
     | Password Reset Settings
     |--------------------------------------------------------------------------
-    | By default, the package will use the password_resets table.
+    | By default, the package will use the password_reset_tokens table.
     | You may define a different table name here.
     |
     */
-    'password_reset_table' => 'password_resets',
+    'password_reset_table' => 'password_reset_tokens',
 
     /*
     |--------------------------------------------------------------------------
