@@ -37,4 +37,5 @@ test('authorized customer.auth.login.store', function () {
         ->assertRedirect();
 
     assertAuthenticated(null, $user);
-})->group('auth', 'login');
+})->group('auth', 'login')
+    ->skip(fn () => config('laravel-auth.features.basic') === false, 'This test is not applicable when basic auth is disabled');
